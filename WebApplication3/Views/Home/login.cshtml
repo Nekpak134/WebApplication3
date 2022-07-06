@@ -1,0 +1,56 @@
+﻿@model WebApplication3.Models.loginmodel
+
+@{
+    ViewBag.Title = "login";
+}
+
+<h2>login</h2>
+<style>
+    .error{
+        color:#ff0000
+    }
+</style>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>loginmodel</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control",@placeholder="enter email",@required="required" } })
+                @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                <span class="error">@TempData["email"]</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control", @placeholder = "enter password",@type="password", @required = "required" } })
+                @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                <span class="error">@TempData["password"]</span>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="logIn" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "create_new")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
